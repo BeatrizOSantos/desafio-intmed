@@ -14,6 +14,10 @@ import { SelectComponent } from './shared/select/select.component';
 import { HeaderComponent } from './core/header/header.component';
 import { ContainerComponent } from './core/container/container.component';
 import { RegisterAppointmentComponent } from './features/register-appointment/register-appointment.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { RegisterAppointmentComponent } from './features/register-appointment/re
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
