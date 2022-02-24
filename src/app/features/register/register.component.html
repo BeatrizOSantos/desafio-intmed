@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="container">
+  <div class="header">
+    <img mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
+  </div>
+
+  <div class="body">
+    <form class="inputs">
+      <mat-form-field class="register-name" [style.width.px]=400 appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-form-field class="register-email" [style.width.px]=400 appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl">
+      </mat-form-field>
+
+      <mat-form-field class="register-password" [style.width.px]=400 appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="confirm-password" [style.width.px]=400 appearance="outline">
+        <mat-label>Confirmar Senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+    <div class="buttons">
+      <button mat-flat-button class="cancel" [style.width.px]=180>Cancelar</button>
+      <button mat-flat-button class="confirm" color="primary" [style.width.px]=180>Confirmar</button>
+    </div>
+  </div>
+</div>

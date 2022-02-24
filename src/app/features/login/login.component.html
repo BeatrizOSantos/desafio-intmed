@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container">
+  <div class="header">
+    <img mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
+    
+  </div>
+
+  <div class="body">
+    <form class="inputs">
+      <mat-form-field class="email" [style.width.px]=400 appearance="outline">
+        <mat-label>Email ou Login</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl">
+      </mat-form-field>
+
+      <mat-form-field class="senha" [style.width.px]=400 appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+    <div class="checkbox">
+      <mat-checkbox class="remember-password">Lembrar Senha</mat-checkbox>
+    </div>
+
+    <div class="buttons">
+      <button mat-flat-button class="register" [style.width.px]=180>Criar Conta</button>
+      <button mat-flat-button class="login" color="primary" [style.width.px]=180>Acessar</button>
+    </div>
+  </div>
+</div>
