@@ -1,0 +1,53 @@
+<div class="content">
+  <h1 mat-dialog-title>Nova Consulta</h1>
+  <div class="selects">
+    <div mat-dialog-content>
+      <form>
+        <mat-form-field appearance="outline" [style.width.px]=400>
+          <mat-label>Especialidade</mat-label>
+          <mat-select [(ngModel)]="selectedSpecialty" name="food">
+            <mat-option *ngFor="let specialty of specialties" [value]="specialty.value">
+              {{specialty.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Médico</mat-label>
+          <mat-select [(ngModel)]="selectedDoctor" name="food">
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor.value">
+              {{doctor.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data</mat-label>
+          <mat-select [(ngModel)]="selectedData" name="food">
+            <mat-option *ngFor="let data of datas" [value]="data.value">
+              {{data.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+        <mat-label>Hora</mat-label>
+          <mat-select [(ngModel)]="selectedTime" name="food">
+            <mat-option *ngFor="let hour of time" [value]="hour.value">
+              {{hour.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="buttons">
+      <div mat-dialog-actions>
+        <button class="cancel-modal" mat-button mat-dialog-close [style.width.px]=180>Cancelar</button>
+      </div>
+      <div mat-dialog-actions>
+        <button class="confirm-modal" mat-button color="primary" [style.width.px]=180>Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+</div>

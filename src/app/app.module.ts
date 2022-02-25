@@ -17,6 +17,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
     HomeComponent,
     RegisterComponent,
     RegisterAppointmentComponent,
+    ModalAppointmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,8 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatToolbarModule,
     MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
