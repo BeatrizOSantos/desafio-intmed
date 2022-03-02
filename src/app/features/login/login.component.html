@@ -1,19 +1,20 @@
+<base href="/">
 <div class="container">
   <div class="header">
     <img mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
-    
+
   </div>
 
   <div class="body">
-    <form class="inputs">
+    <form class="inputs" [formGroup]="loginForm">
       <mat-form-field class="email" [style.width.px]=400 appearance="outline">
         <mat-label>Email ou Login</mat-label>
-        <input type="email" matInput [formControl]="emailFormControl">
+        <input type="email" matInput formControlName="email" required>
       </mat-form-field>
 
       <mat-form-field class="senha" [style.width.px]=400 appearance="outline">
         <mat-label>Senha</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -25,8 +26,8 @@
     </div>
 
     <div class="buttons">
-      <button mat-flat-button class="register" [style.width.px]=180>Criar Conta</button>
-      <button mat-flat-button class="login" color="primary" [style.width.px]=180>Acessar</button>
+      <button mat-flat-button class="register" [style.width.px]=180 routerLink="/register">Criar Conta</button>
+      <button mat-flat-button class="login" color="primary" [style.width.px]=180 routerLink="/home" (click)="saveForm()" [disabled]="loginForm.pristine || loginForm.invalid">Acessar</button>
     </div>
   </div>
 </div>

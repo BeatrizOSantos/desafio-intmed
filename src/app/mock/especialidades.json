@@ -1,0 +1,22 @@
+[
+  {
+    "especialidades": [
+      {
+        "name": "Clínica Geral",
+        "id": 1
+      },
+      {
+        "name": "Cardiologia",
+        "id": 2
+      },
+      {
+        "name": "Psiquiatria",
+        "id": 3
+      },
+      {
+        "name": "Neurologia",
+        "id": 4
+      }
+    ]
+  }
+]

@@ -1,24 +1,9 @@
+import { MatDialogRef } from '@angular/material/dialog';
+import { ModalAppointmentService } from './../../services/modal-appointment.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ListaEspecialidade, ListaData, ListaHorario, ListaMedico, Data, Horario, Medico, Especialidade } from './consultas_d';
 
-interface Especialidade {
-  value: string;
-  viewValue: string;
-}
-
-interface Medico {
-  value: string;
-  viewValue: string;
-}
-
-interface Data {
-  value: string;
-  viewValue: string;
-}
-
-interface Hora {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-modal-appointment',
@@ -31,31 +16,10 @@ export class ModalAppointmentComponent implements OnInit {
   selectedData: string;
   selectedTime: string;
 
-  specialties: Especialidade[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
+  // specialties: Especialidade[] = [];
+  specialties: any;
 
-  doctors: Medico[] = [
-    {value: 'volvo', viewValue: 'Volvo'},
-    {value: 'saab', viewValue: 'Saab'},
-    {value: 'mercedes', viewValue: 'Mercedes'},
-  ];
-
-  datas: Data[] = [
-    {value: 'volvo', viewValue: 'Volvo'},
-    {value: 'saab', viewValue: 'Saab'},
-    {value: 'mercedes', viewValue: 'Mercedes'},
-  ];
-
-  time: Hora[] = [
-    {value: 'volvo', viewValue: 'Volvo'},
-    {value: 'saab', viewValue: 'Saab'},
-    {value: 'mercedes', viewValue: 'Mercedes'},
-  ];
-
-  constructor() {
+  constructor(private formBuilder: FormBuilder, private modalAppointmentService : ModalAppointmentService, private MatDialogRef : MatDialogRef<ModalAppointmentComponent>) {
     this.selectedSpecialty = "";
     this.selectedDoctor = "";
     this.selectedData = "";
@@ -63,6 +27,10 @@ export class ModalAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  this.modalAppointmentService.getDoctor().subscribe((data)=>{
+    this.specialties = data;
+    console.log(data);
+  });
   }
 
 }

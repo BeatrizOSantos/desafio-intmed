@@ -1,0 +1,25 @@
+{
+  "cadastro": [
+    {
+      "name": "Beatriz Santos",
+      "email": "beatrizods@hotmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "id": 1
+    },
+    {
+      "name": "Alan Santos",
+      "email": "alansods@gmail.com",
+      "password": "654321",
+      "confirmPassword": "654321",
+      "id": 2
+    },
+    {
+      "name": "Nicholas Timbó",
+      "email": "nicholastn@hotmail.com",
+      "password": "bia123",
+      "confirmPassword": "bia123",
+      "id": 3
+    }
+  ]
+}

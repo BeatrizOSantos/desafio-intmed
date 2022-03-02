@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "medico": {
+      "id": 1,
+      "crm": 3711,
+      "nome": "Drauzio Varella",
+      "email": "drauzinho@globo.com"
+    },
+    "dia": "2020-02-10",
+    "horarios": ["14:00", "14:15", "16:00"]
+  },
+  {
+    "id": 2,
+    "medico": {
+      "id": 2,
+      "crm": 2544,
+      "nome": "Gregory House",
+      "email": "greg@hbo.com.br"
+    },
+    "dia": "2020-02-10",
+    "horarios": ["08:00", "08:30", "09:00", "09:30", "14:00"]
+  }
+]

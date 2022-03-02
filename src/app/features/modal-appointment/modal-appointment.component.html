@@ -5,9 +5,9 @@
       <form>
         <mat-form-field appearance="outline" [style.width.px]=400>
           <mat-label>Especialidade</mat-label>
-          <mat-select [(ngModel)]="selectedSpecialty" name="food">
-            <mat-option *ngFor="let specialty of specialties" [value]="specialty.value">
-              {{specialty.viewValue}}
+          <mat-select  name="food">
+            <mat-option *ngFor="let specialty of specialties" [value]="specialty.name">
+              {{specialty.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -15,27 +15,27 @@
         <mat-form-field appearance="outline">
           <mat-label>Médico</mat-label>
           <mat-select [(ngModel)]="selectedDoctor" name="food">
-            <mat-option *ngFor="let doctor of doctors" [value]="doctor.value">
+            <!-- <mat-option *ngFor="let doctor of doctors" [value]="doctor.value">
               {{doctor.viewValue}}
-            </mat-option>
+            </mat-option> -->
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Data</mat-label>
           <mat-select [(ngModel)]="selectedData" name="food">
-            <mat-option *ngFor="let data of datas" [value]="data.value">
+            <!-- <mat-option *ngFor="let data of datas" [value]="data.value">
               {{data.viewValue}}
-            </mat-option>
+            </mat-option> -->
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
         <mat-label>Hora</mat-label>
           <mat-select [(ngModel)]="selectedTime" name="food">
-            <mat-option *ngFor="let hour of time" [value]="hour.value">
+            <!-- <mat-option *ngFor="let hour of time" [value]="hour.value">
               {{hour.viewValue}}
-            </mat-option>
+            </mat-option> -->
           </mat-select>
         </mat-form-field>
       </form>

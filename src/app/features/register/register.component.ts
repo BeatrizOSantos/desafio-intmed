@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { RegisterService } from 'src/app/services/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,13 +10,34 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
   hide = true;
 
-  constructor() { }
+  profileForm !: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private register : RegisterService, private router: Router) { }
 
   ngOnInit(): void {
+    this.profileForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
+  }
+
+  addProduct(){
+    if(this.profileForm.valid){
+      this.register.postUser(this.profileForm.value)
+      .subscribe({
+        next:(res)=>{
+          alert("User added successfully");
+          this.router.navigate(['/login']);
+        },
+        error:()=>{
+          alert("Error while adding the user");
+        }
+      })
+    }
   }
 
 }

@@ -2,13 +2,20 @@
   <div class="header">
     <img class="logo" mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
     <p class="name">Beatriz Santos</p>
-    <a href="">Desconectar</a>
+    <a href="/">Desconectar</a>
   </div>
 
   <div class="body">
     <div class="sub-header">
       <h2 class="title">Consulta Clínica</h2>
-      <button mat-flat-button class="new-appointment" [style.width.px]=138 [style.height.px]=24 color="primary" (click)="openDialog()">Nova Consulta</button>
+      <button class="container-button" (click)="openDialog()">
+        <div class="box-button">
+          <div class="icon">
+            <img src="../../../assets/plusButton.svg" alt="">
+          </div>
+          <span>Nova consulta</span>
+        </div>
+      </button>
     </div>
     <div class="table-responsive">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
