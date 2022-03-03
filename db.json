@@ -35,29 +35,124 @@
   ],
   "cadastro": [
     {
-      "name": "Beatriz Santos",
+      "nome": "Beatriz Santos",
       "email": "beatrizods@hotmail.com",
-      "password": "123",
-      "confirmPassword": "123",
+      "senha": "123",
+      "confirmarSenha": "123",
       "id": 1
+    },
+    {
+      "nome": "Nicholas Timbó",
+      "email": "nicholastn@gmail.com",
+      "senha": "123",
+      "confirmarSenha": "123",
+      "id": 2
+    },
+    {
+      "name": "Gabriel Costa",
+      "email": "gabimel@hotmail.com",
+      "senha": "123456",
+      "confirmarSenha": "123456",
+      "id": 3
+    },
+    {
+      "nome": "Nicholas Timbó",
+      "email": "nicholastn@gmail.com",
+      "senha": "123456789",
+      "confirmarSenha": "123456789",
+      "id": 4
     }
   ],
   "especialidades": [
     {
-      "name": "Clínica Geral",
+      "id": 1,
+      "nome": "Clínica Geral"
+    },
+    {
+      "id": 2,
+      "nome": "Cardiologia"
+    },
+    {
+      "id": 3,
+      "nome": "Pediatria"
+    },
+    {
+      "id": 4,
+      "nome": "Neurologia"
+    }
+  ],
+  "medicos": [
+    {
+      "id": 1,
+      "crm": 3711,
+      "nome": "Drauzio Varella",
+      "especialidade": {
+        "id": 2,
+        "nome": "Pediatria"
+      }
+    },
+    {
+      "id": 2,
+      "crm": 2544,
+      "nome": "Gregory House",
+      "especialidade": {
+        "id": 3,
+        "nome": "Cardiologia"
+      }
+    },
+    {
+      "id": 3,
+      "crm": 3087,
+      "nome": "Tony Tony Chopper",
+      "especialidade": {
+        "id": 2,
+        "nome": "Pediatria"
+      }
+    }
+  ],
+  "consultas": [
+    {
+      "especialidade": "Clínica Geral",
+      "medico": "Gregory House",
+      "dia": "2020-02-10",
+      "horario": [
+        "14:00",
+        "14:15",
+        "16:00"
+      ],
       "id": 1
     },
     {
-      "name": "Cardiologia",
+      "especialidade": "Cardiologia",
+      "medico": "Gregory House",
+      "dia": "2020-02-10",
+      "horario": [
+        "14:00",
+        "14:15",
+        "16:00"
+      ],
       "id": 2
     },
     {
-      "name": "Psiquiatria",
+      "especialidade": "Cardiologia",
+      "medico": "Drauzio Varella",
+      "dia": "2020-02-10",
+      "horario": [
+        "08:00",
+        "08:30",
+        "09:00",
+        "09:30",
+        "14:00"
+      ],
       "id": 3
-    },
+    }
+  ],
+  "login": [
     {
-      "name": "Neurologia",
-      "id": 4
+      "nome": "Beatriz Santos",
+      "email": "beatrizods@hotmail.com",
+      "senha": "123",
+      "id": 1
     }
   ]
 }

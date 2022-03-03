@@ -18,23 +18,24 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      nome: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      senha: ['', Validators.required],
+      confirmarSenha: ['', Validators.required],
     });
   }
 
-  addProduct(){
+  addUser(){
     if(this.profileForm.valid){
       this.register.postUser(this.profileForm.value)
       .subscribe({
         next:(res)=>{
-          alert("User added successfully");
+          alert("Usuário criado com sucesso");
+          this.profileForm.reset();
           this.router.navigate(['/login']);
         },
         error:()=>{
-          alert("Error while adding the user");
+          alert("Error ao criar o usuário");
         }
       })
     }

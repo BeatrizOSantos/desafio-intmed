@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Cadastro } from './../features/modal-appointment/consultas_d';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
+  private readonly endpointCadastro = "http://localhost:3000/cadastro/";
 
   constructor(private http : HttpClient) { }
 
-  postUser(data : any){
-    return this.http.post<any>("http://localhost:3000/cadastro/", data);
+  public postUser(data : Cadastro){
+    return this.http.post<Cadastro[]>(this.endpointCadastro, data);
   }
 
-  getUser(){
-    return this.http.get<any>("http://localhost:3000/cadastro/");
+  public getUser(){
+    return this.http.get<Cadastro[]>(this.endpointCadastro);
   }
 
 }

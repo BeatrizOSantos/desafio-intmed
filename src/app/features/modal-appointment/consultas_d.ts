@@ -1,36 +1,49 @@
-export interface ListaEspecialidade {
-  especialidades: Especialidade[];
-}
-
-export interface ListaMedico {
-  medicos: Medico[];
-}
-
-export interface ListaData {
-  datas: Data[];
-}
-
-export interface ListaHorario {
-  horarios: Horario[];
+export interface AgendaDisponivel {
+  id: number;
+  medico: Medico;
+  dia: string;
+  horarios: Horario;
 }
 
 export interface Medico {
   id: number;
-  nome: string;
   crm: number;
+  nome: string;
+  especialidade: Especialidade;
 }
 
 export interface Data {
-  data: string;
-  id: number;
+  dia: string;
 }
 
 export interface Horario {
-  horario: string;
-  id: number;
+  horarios: [];
 }
 
 export interface Especialidade {
-  name: string;
   id: number;
+  nome: string;
+}
+
+export interface Cadastro {
+  id: number;
+  nome: string;
+  email: string;
+  senha: string;
+  confirmarSenha: string;
+}
+
+export interface Consulta {
+  id: number;
+  dia: string;
+  horario: string;
+  data: string;
+  medico: Medico;
+  especialidade: Especialidade;
+}
+
+export interface Login {
+  id: number;
+  email: string;
+  senha: string;
 }
