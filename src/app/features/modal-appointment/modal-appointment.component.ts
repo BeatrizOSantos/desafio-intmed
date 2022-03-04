@@ -1,9 +1,9 @@
-import { HomeService } from './../../services/home.service';
+import { HomeService } from '../../core/services/home.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ModalAppointmentService } from './../../services/modal-appointment.service';
+import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Data, Horario, Medico, Especialidade, AgendaDisponivel } from './consultas_d';
+import { Data, Horario, Medico, Especialidade, AgendaDisponivel } from '../../core/interfaces/consultas_d';
 
 @Component({
   selector: 'app-modal-appointment',
@@ -38,18 +38,27 @@ export class ModalAppointmentComponent implements OnInit {
       this.horarios = dados
     });
 
+    this.modalService.getAgendaDisponivel().subscribe((dados) => {
+      this.agendaDisponivel = dados
+    });
+
     this.modalForm = this.formBuilder.group({
+
       especialidade: ['', Validators.required],
       medico: ['', Validators.required],
       dia: ['', Validators.required],
       horario: ['', Validators.required],
+
     });
 
   }
 
   submitForm(){
+
     if(this.modalForm.valid){
+
       this.modalService.postConsulta(this.modalForm.value)
+
       .subscribe({
         next:(res)=>{
           alert("Consulta agendada");
@@ -59,8 +68,11 @@ export class ModalAppointmentComponent implements OnInit {
         error:()=>{
           alert("Error ao agendar consulta")
         }
-      })
+
+      });
+
     }
+    
   }
 
 }

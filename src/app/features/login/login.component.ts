@@ -1,9 +1,10 @@
+import { RegisterService } from 'src/app/core/services/register.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Cadastro, Login } from '../modal-appointment/consultas_d';
-import { LoginService } from 'src/app/services/login.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/core/services/login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Login } from 'src/app/core/interfaces/consultas_d';
 
 @Component({
   selector: 'app-login',
@@ -14,34 +15,42 @@ export class LoginComponent implements OnInit {
 
   hide = true;
 
-  public loginForm!: FormGroup;
+  loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http : HttpClient, private router : Router, private loginService : LoginService) { }
+  constructor(private formBuilder: FormBuilder, private router : Router, private loginService : LoginService, private registerService : RegisterService, private _snackBar: MatSnackBar) { }
 
+  login: Login = {
+    username: '',
+    senha: '',
+  };
 
   ngOnInit(): void {
+
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      senha: ['', Validators.required],
+      username: ["", [ Validators.required, Validators.minLength(4), Validators.maxLength(150) ]],
+      senha: ["", [ Validators.required, Validators.minLength(8), Validators.maxLength(150) ]]
     });
+
   }
 
-  login(){
-    this.http.get<Login[]>("http://localhost:3000/cadastro")
-    .subscribe(res=>{
-      const user = res.find((a : Login)=>{
-        return a.email === this.loginForm.value.email && a.senha === this.loginForm.value.senha
-      });
-      if(user){
-        alert("Login efetuado com sucesso");
-        this.loginForm.reset();
-        this.router.navigate(['home']);
-      } else {
-        alert("Usuário não encontrado");
-      }
-    },(err)=>{
-      alert("Error ao efetuar login")
-    })
+  openSnackBar(message: string, action: string) {
+
+    this._snackBar.open(message, action,{
+      verticalPosition: 'top'
+    });
+
+  }
+
+  async onSubmit(){
+
+    try{
+      const result = await this.loginService.login(this.loginForm.value);
+      window.sessionStorage.setItem("username", this.loginForm.controls["username"].value);
+      this.router.navigate([''])
+    } catch(error) {
+      this.openSnackBar("Erro ao efetuar o login!", "Fechar");
+    }
+    
   }
 
 }

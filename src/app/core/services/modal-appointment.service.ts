@@ -1,4 +1,4 @@
-import { Especialidade, Medico, Data, Horario, AgendaDisponivel, Consulta } from './../features/modal-appointment/consultas_d';
+import { Especialidade, Medico, Data, Horario, AgendaDisponivel, Consulta } from '../interfaces/consultas_d';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

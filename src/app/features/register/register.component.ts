@@ -1,44 +1,85 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { RegisterService } from 'src/app/services/register.service';
+import { RegisterService } from 'src/app/core/services/register.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { MyErrorStateMatcher, passwordValidator } from 'src/app/shared/verificacaoSenha';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass']
 })
+
 export class RegisterComponent implements OnInit {
+
+  matcher = new MyErrorStateMatcher();
 
   hide = true;
 
   profileForm !: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private register : RegisterService, private router: Router) { }
+  userResponse: any;
+
+  errorMessageUser: string = "";
+
+  showPasswordconfirmedError: boolean = false;
+
+
+  constructor(private formBuilder: FormBuilder, private registerService : RegisterService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+
     this.profileForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      email: ['', Validators.required],
-      senha: ['', Validators.required],
-      confirmarSenha: ['', Validators.required],
-    });
+
+      nome: [ null, [ Validators.required, Validators.minLength(4), Validators.maxLength(150) ] ],
+      email: [ null, [ Validators.required, Validators.email, Validators.maxLength(150) ] ],
+      senha: [ null, [ Validators.required, Validators.minLength(8), Validators.maxLength(150) ] ],
+      confirmarSenha: [ null, Validators.required ],
+
+    }, { validators: [passwordValidator] }
+
+    );
+
   }
 
-  addUser(){
+  openSnackBarGreen(message: string, action: string) {
+
+    this._snackBar.open(message, action,{
+      panelClass: 'green'
+    });
+
+  }
+
+  openSnackBarRed(message: string, action: string) {
+
+    this._snackBar.open(message, action,{
+      panelClass: 'red'
+    });
+
+  }
+
+  onSubmit(){
+
     if(this.profileForm.valid){
-      this.register.postUser(this.profileForm.value)
+
+      this.registerService.postUser(this.profileForm.value)
+
       .subscribe({
         next:(res)=>{
-          alert("Usuário criado com sucesso");
+          this.openSnackBarGreen("Cadastro efetuado com sucesso!", "Fechar");
           this.profileForm.reset();
           this.router.navigate(['/login']);
         },
         error:()=>{
-          alert("Error ao criar o usuário");
+          this.openSnackBarRed("Erro ao criar usuário!", "Fechar");
         }
-      })
+
+      });
+
     }
+
   }
 
 }
+

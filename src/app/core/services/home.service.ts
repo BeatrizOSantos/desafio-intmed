@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Consulta } from './../features/modal-appointment/consultas_d';
+import { Consulta } from '../interfaces/consultas_d';
 
 @Injectable({
   providedIn: 'root'

@@ -1,12 +1,12 @@
-import { ModalAppointmentService } from './../../services/modal-appointment.service';
+import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
 import { FormGroup } from '@angular/forms';
-import { HomeService } from 'src/app/services/home.service';
+import { HomeService } from 'src/app/core/services/home.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Consulta } from '../modal-appointment/consultas_d';
+import { Consulta } from '../../core/interfaces/consultas_d';
 import { ModalAppointmentComponent } from '../modal-appointment/modal-appointment.component';
 
-const APPOINTMENT_DATA: Consulta[] = [
+const CONSULTA_DATA: Consulta[] = [
   // {specialty: 'Cardiologia', professional: 'Dr. Drauzio Varella', data: '10/02/2020', hour: '13:00'},
   // {specialty: 'Neurologia', professional: 'Dr. Gregory House', data: '10/02/2020', hour: '13:00'},
   // {specialty: 'Geral', professional: 'Dr. Paulo Carvalho', data: '11/02/2020', hour: '13:00'},
@@ -23,18 +23,28 @@ const APPOINTMENT_DATA: Consulta[] = [
 export class HomeComponent implements OnInit {
   homeForm!: FormGroup;
 
-  displayedColumns: string[] = ['specialty', 'professional', 'data', 'hour', 'actions'];
-  dataSource = APPOINTMENT_DATA;
+  responseConsultas!: Consulta[];
 
-  constructor(public dialog: MatDialog, private modalService : ModalAppointmentService) { }
+  displayedColumns: string[] = ['especialidade', 'medico', 'data', 'hora', 'delete'];
+  dataSource = CONSULTA_DATA;
+
+  constructor(public dialog: MatDialog, private modalService : ModalAppointmentService, private homeService : HomeService) { }
+
+  ngOnInit(): void {
+    this.AllConsultas();
+  }
 
   openDialog() {
     this.dialog.open(ModalAppointmentComponent);
   }
 
-  ngOnInit(): void {
-    // this.getAllConsultas();
+  AllConsultas(){
+    this.homeService.getConsulta().subscribe( (consultas) => {
+      this.responseConsultas = consultas;
+      console.log(this.responseConsultas);
+    });
   }
+
 
   // getAllConsultas(){
   //   if(this.modalForm.valid){

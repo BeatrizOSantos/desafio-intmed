@@ -37,13 +37,11 @@ export interface Consulta {
   id: number;
   dia: string;
   horario: string;
-  data: string;
+  data_agendamento: string;
   medico: Medico;
-  especialidade: Especialidade;
 }
 
 export interface Login {
-  id: number;
-  email: string;
+  username: string;
   senha: string;
 }

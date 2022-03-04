@@ -20,12 +20,66 @@ img
 .body
   width: 400px
 
+.inputs
+  margin-bottom: 10px
+
 .checkbox
-  margin-top: -12px
+  margin-top: -8px
   margin-bottom: 41px
+  color: #A8A8A8
 
 .buttons
   width: 100%
 
-.login
+::ng-deep .mat-snack-bar-container
+  background-color: rgb(153, 50, 50)
+  color: #FFFFFF
+
+.light
+  background: none
+  color: #49B4BB
+
+.dark
   margin-left: 40px
+  background-color: #49B4BB
+  color: #ffffff
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick
+  color: #49B4BB !important
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick
+  color: red !important
+  opacity: 0.8 !important
+
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit
+  background-color: #A8A8A8 !important
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline
+  color: #49B4BB !important
+  opacity: 0.5 !important
+
+::ng-deep .mat-input-element
+  caret-color: #49B4BB !important
+
+::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element
+  caret-color: red !important
+
+::ng-deep .mat-form-field-label
+  color: #A8A8A8 !important
+  .mat-form-field-required-marker
+    display: none
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label
+  color: red !important
+
+::ng-deep .mat-error
+  color: red !important
+
+::ng-deep .light:hover
+  background: #D9F1F3 !important
+
+::ng-deep .dark:hover
+  background: #90D3D7 !important
+
+::ng-deep .dark:disabled
+  background: #D9F1F3 !important

@@ -21,6 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationComponent } from './features/authentication/authentication.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     RegisterComponent,
     ModalAppointmentComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

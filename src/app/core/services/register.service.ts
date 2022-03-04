@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cadastro } from './../features/modal-appointment/consultas_d';
+import { Cadastro } from '../interfaces/consultas_d';
 
 @Injectable({
   providedIn: 'root'
