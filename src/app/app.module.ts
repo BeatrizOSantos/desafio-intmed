@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -6,18 +7,22 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/register/register.component';
-import { InputComponent } from './shared/input/input.component';
-import { ButtonComponent } from './shared/button/button.component';
-import { CircleProgressBarComponent } from './shared/circle-progress-bar/circle-progress-bar.component';
-import { ModalComponent } from './shared/modal/modal.component';
-import { SelectComponent } from './shared/select/select.component';
-import { HeaderComponent } from './core/header/header.component';
-import { ContainerComponent } from './core/container/container.component';
-import { RegisterAppointmentComponent } from './features/register-appointment/register-appointment.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationComponent } from './features/authentication/authentication.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,14 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    InputComponent,
-    ButtonComponent,
-    CircleProgressBarComponent,
-    ModalComponent,
-    SelectComponent,
-    HeaderComponent,
-    ContainerComponent,
-    RegisterAppointmentComponent,
+    ModalAppointmentComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +39,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

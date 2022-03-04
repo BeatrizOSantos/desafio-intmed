@@ -1,0 +1,113 @@
+.container
+  width: 100%
+  height: 100%
+  display: flex
+  // justify-content: center
+  align-items: center
+  flex-direction: column
+  // overflow: hidden
+
+.header
+  width: 55%
+  display: flex
+  justify-content: space-between
+  margin-top: 2.5%
+  margin-bottom: 2.5%
+
+.name
+  margin-left: 57%
+
+a
+  text-decoration: none
+  color: #49B4BB
+
+.logo
+  width: 90px
+  height: 25px
+
+.body
+  width: 55%
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.25)
+  border-radius: 4px
+  padding: 18px
+
+.sub-header
+  display: flex
+  justify-content: space-between
+  flex-direction: row
+
+.new-appointment
+  display: flex
+  justify-content: center
+  align-items: center
+
+.table-responsive
+  display: block
+  width: 100%
+  overflow-x: auto
+  .mat-table
+      width: 100%
+      max-width: 100%
+      margin-bottom: 1rem
+      display: table
+      border-collapse: collapse
+      margin: 0px
+
+  .mat-row,
+  .mat-header-row
+      display: table-row
+
+  .mat-cell,
+  .mat-header-cell
+      word-wrap: initial
+      display: table-cell
+      padding: 0px 5px
+      line-break: unset
+      width: auto
+      white-space: nowrap
+      overflow: hidden
+      vertical-align: middle
+      border-bottom-style: none
+
+.mat-row:nth-child(even)
+    background-color: #F8F8F8
+
+.cancel-appointment
+  background: none
+  color: #49B4BB
+  font-weight: normal
+  font-size: 13px
+  background: transparent url(../../../assets/cancelButton.svg) no-repeat left
+  border: 0
+  padding-left: 22px
+
+.new-appointment
+  color: #FFFFFF
+  border-radius: 4px
+  // background: #49B4BB url(../../../assets/plusButton.svg) no-repeat left
+  padding-left: 30px
+  font-weight: normal
+  font-size: 13px
+
+.container-button
+  width: 138px
+  height: 24px
+  padding: 0
+  border: none
+  cursor: pointer
+
+  .box-button
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: row
+    align-items: center
+    padding: 6.75px 12px
+    background: #49B4BB
+    color: #FFF
+    box-sizing: border-box
+    border-radius: 4px
+
+    .icon
+      margin-right: 12px
+      margin-top: 3%

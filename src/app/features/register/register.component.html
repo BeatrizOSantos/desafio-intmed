@@ -1,1 +1,96 @@
-<p>register works!</p>
+<div class="container">
+
+  <div class="header">
+    <img mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
+  </div>
+
+  <div class="body">
+
+    <form class="inputs" [formGroup]="profileForm">
+
+      <mat-form-field class="register-formControlName" [style.width.px]=400 appearance="outline">
+
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" formControlName="nome" id="nome" required required minlength="3">
+
+        <mat-error *ngIf="profileForm.get('nome')?.hasError('required')">
+          Nome obrigatório.
+        </mat-error>
+
+        <mat-error *ngIf="profileForm.get('nome')?.hasError('minlength')">
+          O nome deve ter pelo menos 4 caracteres.
+        </mat-error>
+
+        <mat-error *ngIf="profileForm.get('nome')?.hasError('maxlength')">
+          O nome pode ter até no máximo 150 caracteres.
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="register-email" [style.width.px]=400 appearance="outline">
+
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" id="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+
+        <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+          Email obrigatório.
+        </mat-error>
+        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+          Digite um email válido.
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="register-password" [style.width.px]=400 appearance="outline">
+
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha" id="senha" [type]="hide ? 'password' : 'text'" required minlength="8">
+
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+
+        <mat-error *ngIf="profileForm.get('senha')?.hasError('required')">
+          Senha obrigatória.
+        </mat-error>
+
+        <mat-error *ngIf="profileForm.get('senha')?.hasError('minlength')">
+          A senha deve ter pelo menos 8 caracteres.
+        </mat-error>
+
+        <mat-error *ngIf="profileForm.get('senha')?.hasError('maxlength')">
+          A senha pode ter até no máximo 40 caracteres.
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="confirm-password" [style.width.px]=400 appearance="outline">
+
+        <mat-label>Confirmar Senha</mat-label>
+        <input matInput type="password" formControlName="confirmarSenha" id="confirmarSenha" [type]="hide ? 'password' : 'text'" required minlength="8" autocomplete="off" [errorStateMatcher]="matcher">
+
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+
+        <mat-error *ngIf="profileForm.get('confirmarSenha')?.hasError('required')">
+          Confirme a senha
+        </mat-error>
+
+        <mat-error *ngIf="profileForm.hasError('paswordMismatch')">
+          As senhas são diferentes
+        </mat-error>
+
+      </mat-form-field>
+    </form>
+
+    <div class="buttons">
+
+      <button type="button" mat-flat-button class="light" [style.width.px]=180 [routerLink]="['/login']">Cancelar</button>
+      <button type="submit" mat-flat-button class="dark" color="primary" [style.width.px]=180 (click)="onSubmit()" [disabled]="profileForm.pristine || profileForm.invalid">Confirmar</button>
+
+    </div>
+
+  </div>
+
+</div>

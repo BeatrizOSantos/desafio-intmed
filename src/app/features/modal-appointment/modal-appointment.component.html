@@ -1,0 +1,81 @@
+<div class="content">
+
+  <h1 mat-dialog-title>Nova Consulta</h1>
+
+  <div class="selects">
+
+    <div mat-dialog-content>
+
+      <form [formGroup]="modalForm">
+
+        <mat-form-field appearance="outline" [style.width.px]=400>
+
+          <mat-label>Especialidade</mat-label>
+          <mat-select formControlName="especialidade">
+
+            <mat-option *ngFor="let especialidade of especialidades" [value]="especialidade.nome">
+              {{especialidade.nome}}
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Médico</mat-label>
+          <mat-select formControlName="medico">
+
+            <mat-option *ngFor="let medico of medicos" [value]="medico.nome">
+              {{medico.nome}}
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Data</mat-label>
+          <mat-select formControlName="dia">
+
+            <mat-option *ngFor="let dia of datas" [value]="dia.dia">
+              {{dia.dia}}
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+        <mat-label>Hora</mat-label>
+          <mat-select formControlName="horario">
+
+            <mat-option *ngFor="let horario of horarios" [value]="horario.horarios">
+              {{horario.horarios}}
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+      </form>
+
+    </div>
+
+    <div class="buttons">
+
+      <div mat-dialog-actions>
+        <button class="light" mat-button mat-dialog-close [style.width.px]=180>Cancelar</button>
+      </div>
+
+      <div mat-dialog-actions>
+        <button class="dark" mat-button color="primary" [style.width.px]=180 (click)="submitForm()">Confirmar</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

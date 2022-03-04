@@ -1,1 +1,85 @@
-<p>home works!</p>
+<div class="container">
+
+  <div class="header">
+
+    <img class="logo" mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
+    <p class="name">Beatriz Santos</p>
+    <a href="/">Desconectar</a>
+
+  </div>
+
+  <div class="body">
+
+    <div class="sub-header">
+
+      <h2 class="title">Consulta Clínica</h2>
+
+      <button class="container-button" (click)="openDialog()">
+
+        <div class="box-button">
+
+          <div class="icon">
+            <img src="../../../assets/plusButton.svg" alt="">
+          </div>
+          <span>Nova consulta</span>
+
+        </div>
+
+      </button>
+
+    </div>
+
+    <div class="table-responsive">
+
+      <table mat-table [dataSource]="responseConsultas" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="especialidade">
+
+          <th mat-header-cell *matHeaderCellDef> ESPECIALIDADE </th>
+          <td mat-cell *matCellDef="let consultas"> {{consultas.medico.especialidade.nome}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="medico">
+
+          <th mat-header-cell *matHeaderCellDef> PROFISSIONAL </th>
+          <td mat-cell *matCellDef="let consultas"> {{consultas.medico.nome}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="data">
+
+          <th mat-header-cell *matHeaderCellDef> DATA </th>
+          <td mat-cell *matCellDef="let consultas"> {{consultas.data_agendamento}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="hora">
+
+          <th mat-header-cell *matHeaderCellDef> HORA </th>
+          <td mat-cell *matCellDef="let consultas"> {{consultas.horario}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+
+          <mat-header-cell  *matHeaderCellDef > </mat-header-cell>
+          <mat-cell *matCellDef="let row" >
+
+            <button mat-flat-button class="cancel-appointment" [style.width.px]=93 (click)="openDialog()">
+              Desmarcar
+            </button>
+
+          </mat-cell>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>
