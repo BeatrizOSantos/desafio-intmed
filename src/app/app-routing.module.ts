@@ -7,39 +7,22 @@ import { AuthenticationComponent } from './features/authentication/authenticatio
 import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: HomeComponent,
-  //   children: [
-  //     { path: '', component: HomeComponent },
-  //   ],
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: '',
-  //   component: AuthenticationComponent,
-  //   children: [
-  //     { path: '', redirectTo: 'login', pathMatch: 'full' },
-  //     { path: 'login', component: LoginComponent },
-  //     { path: 'register', component: RegisterComponent },
-  //   ]
-  // },
   {
-    path: 'login',
-    component: LoginComponent
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', component: HomeComponent },
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'home',
-    component: HomeComponent
+    component: AuthenticationComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ]
   },
 ];
 

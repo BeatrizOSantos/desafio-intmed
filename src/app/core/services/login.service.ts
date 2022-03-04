@@ -21,9 +21,8 @@ export class LoginService {
     return this.http.get<Login[]>(this.endpointLogin);
   }
 
-  login(user: Login){
-    // const result = await lastValueFrom(this.http.post<Login>(`${environment.api}/auth/login`, user));
-    const result = this.http.post<Login>(`${environment.api}/auth/login`, user);
+  async login(user: any){
+    const result = await lastValueFrom(this.http.post<Login>(this.endpointLogin, user));
     console.log("dados retornados: ", result);
     if(result){
       return true;

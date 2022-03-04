@@ -1,5 +1,8 @@
 # DesafioIntmed
 
+## Mock
+Para utilizar os dados mockados deve-se rodar o comando json-server --watch db.json em um terminal a parte
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
 ## Development server

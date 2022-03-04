@@ -5,15 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Consulta } from '../../core/interfaces/consultas_d';
 import { ModalAppointmentComponent } from '../modal-appointment/modal-appointment.component';
-
-const CONSULTA_DATA: Consulta[] = [
-  // {specialty: 'Cardiologia', professional: 'Dr. Drauzio Varella', data: '10/02/2020', hour: '13:00'},
-  // {specialty: 'Neurologia', professional: 'Dr. Gregory House', data: '10/02/2020', hour: '13:00'},
-  // {specialty: 'Geral', professional: 'Dr. Paulo Carvalho', data: '11/02/2020', hour: '13:00'},
-  // {specialty: 'Cardiologia', professional: 'Dr. Nathascha Timbó', data: '12/02/2020', hour: '13:00'},
-  // {specialty: 'Pediatria', professional: 'Dr. Marcos Mioto', data: '13/02/2020', hour: '13:00'},
-  // {specialty: 'Geral', professional: 'Dr. Cristina Valente', data: '12/02/2020', hour: '13:00'},
-];
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -26,9 +18,8 @@ export class HomeComponent implements OnInit {
   responseConsultas!: Consulta[];
 
   displayedColumns: string[] = ['especialidade', 'medico', 'data', 'hora', 'delete'];
-  dataSource = CONSULTA_DATA;
 
-  constructor(public dialog: MatDialog, private modalService : ModalAppointmentService, private homeService : HomeService) { }
+  constructor(public dialog: MatDialog, private router : Router, private modalService : ModalAppointmentService, private homeService : HomeService) { }
 
   ngOnInit(): void {
     this.AllConsultas();
@@ -45,19 +36,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  public get username(){
+    return window.sessionStorage.getItem("username");
+  }
 
-  // getAllConsultas(){
-  //   if(this.modalForm.valid){
-  //     this.modalService.getConsulta()
-  //     .subscribe({
-  //       next:(res)=>{
-  //         console.log(res);
-  //       },
-  //       error:()=>{
-  //         alert("Error while fetching the Records")
-  //       }
-  //     })
-  //   }
-  // }
+  public logout(){
+    window.sessionStorage.removeItem("username");
+    this.router.navigate(['/login']);
+  }
 
 }

@@ -11,13 +11,12 @@ export class AuthGuard implements CanActivate {
 
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-    const username = window.localStorage.getItem('username');
+    const username = window.sessionStorage.getItem('username');
 
     if(username){
       return true;
 
     } else{
-      console.log("nao entrou");
       this.router.navigate(['login']);
       return false;
     }
