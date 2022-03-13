@@ -1,15 +1,16 @@
-import { FormControl, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  AbstractControl,
+} from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-export function passwordValidator(
-  control: AbstractControl
-): {
+export function passwordValidator(control: AbstractControl): {
   [key: string]: boolean;
 } | null {
-
-
-  const password = control.get("senha");
-  const validPassword = control.get("confirmarSenha");
+  const password = control.get('senha');
+  const validPassword = control.get('confirmarSenha');
   if (password!.pristine || validPassword!.pristine) {
     return null;
   }
@@ -19,10 +20,18 @@ export function passwordValidator(
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      const invalidCtrl = !!(control && control.invalid && control.parent?.dirty);
-      const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent?.dirty);
+    const invalidParent = !!(
+      control &&
+      control.parent &&
+      control.parent.invalid &&
+      control.parent.dirty
+    );
 
-      return (invalidCtrl || invalidParent);
-    }
+    return invalidCtrl || invalidParent;
   }
+}
