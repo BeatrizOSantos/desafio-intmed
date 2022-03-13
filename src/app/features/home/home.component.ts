@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
   AllConsultas(){
     this.homeService.getConsulta().subscribe( (consultas) => {
       this.responseConsultas = consultas;
-      console.log(this.responseConsultas);
     });
   }
 
