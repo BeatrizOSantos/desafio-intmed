@@ -10,16 +10,27 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
   homeForm!: FormGroup;
 
   responseConsultas!: Consulta[];
 
-  displayedColumns: string[] = ['especialidade', 'medico', 'data', 'hora', 'delete'];
+  displayedColumns: string[] = [
+    'especialidade',
+    'medico',
+    'data',
+    'hora',
+    'delete',
+  ];
 
-  constructor(public dialog: MatDialog, private router : Router, private modalService : ModalAppointmentService, private homeService : HomeService) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private modalService: ModalAppointmentService,
+    private homeService: HomeService
+  ) {}
 
   ngOnInit(): void {
     this.AllConsultas();
@@ -29,19 +40,18 @@ export class HomeComponent implements OnInit {
     this.dialog.open(ModalAppointmentComponent);
   }
 
-  AllConsultas(){
-    this.homeService.getConsulta().subscribe( (consultas) => {
+  AllConsultas() {
+    this.homeService.getConsulta().subscribe((consultas) => {
       this.responseConsultas = consultas;
     });
   }
 
-  public get username(){
-    return window.sessionStorage.getItem("username");
+  public get username() {
+    return window.sessionStorage.getItem('username');
   }
 
-  public logout(){
-    window.sessionStorage.removeItem("username");
+  public logout() {
+    window.sessionStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
-
 }

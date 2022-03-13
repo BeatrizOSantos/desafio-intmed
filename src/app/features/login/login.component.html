@@ -1,17 +1,23 @@
 <div class="container">
-
   <div class="header">
-    <img mat-card-image src="../../../assets/logo-intmed.svg" alt="Intmed's Logo">
+    <img
+      mat-card-image
+      src="../../../assets/logo-intmed.svg"
+      alt="Intmed's Logo"
+    />
   </div>
 
   <div class="body">
-
     <form class="inputs" [formGroup]="loginForm">
-
-      <mat-form-field class="email" [style.width.px]=400 appearance="outline">
-
+      <mat-form-field class="email" [style.width.px]="400" appearance="outline">
         <mat-label>Email ou Login</mat-label>
-        <input type="email" name="email" formControlName="username" id="email" matInput>
+        <input
+          type="email"
+          name="email"
+          formControlName="username"
+          id="email"
+          matInput
+        />
 
         <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
           Campo obrigatório.
@@ -24,16 +30,29 @@
         <mat-error *ngIf="loginForm.get('email')?.hasError('maxlength')">
           O Campo pode ter até no máximo 150 caracteres.
         </mat-error>
-
       </mat-form-field>
 
-      <mat-form-field class="senha" [style.width.px]=400 appearance="outline">
-
+      <mat-form-field class="senha" [style.width.px]="400" appearance="outline">
         <mat-label>Senha</mat-label>
-        <input type="password" name="senha" formControlName="senha" id="senha" matInput [type]="hide ? 'password' : 'text'" required minlength="8">
+        <input
+          type="password"
+          name="senha"
+          formControlName="senha"
+          id="senha"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          required
+          minlength="8"
+        />
 
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
 
         <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
@@ -47,9 +66,7 @@
         <mat-error *ngIf="loginForm.get('senha')?.hasError('maxlength')">
           A senha pode ter até no máximo 40 caracteres.
         </mat-error>
-
       </mat-form-field>
-
     </form>
 
     <div class="checkbox">
@@ -57,12 +74,26 @@
     </div>
 
     <div class="buttons">
-
-      <button type="button" mat-flat-button class="light" [style.width.px]=180 [routerLink]="['/register']">Criar Conta</button>
-      <button type="submit" mat-flat-button class="dark" color="primary" [style.width.px]=180 [disabled]="loginForm.pristine || loginForm.invalid" (click)="onSubmit()">Acessar</button>
-
+      <button
+        type="button"
+        mat-flat-button
+        class="light"
+        [style.width.px]="180"
+        [routerLink]="['/register']"
+      >
+        Criar Conta
+      </button>
+      <button
+        type="submit"
+        mat-flat-button
+        class="dark"
+        color="primary"
+        [style.width.px]="180"
+        [disabled]="loginForm.pristine || loginForm.invalid"
+        (click)="onSubmit()"
+      >
+        Acessar
+      </button>
     </div>
-
   </div>
-
 </div>
