@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register.component';
 import { HomeComponent } from './features/home/home.component';
+import { AuthGuard } from './core/auth/auth.guard';
 import { AuthenticationComponent } from './features/authentication/authentication.component';
-import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {

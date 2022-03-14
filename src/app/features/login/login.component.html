@@ -17,9 +17,10 @@
           formControlName="username"
           id="email"
           matInput
+          required
         />
 
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
           Campo obrigatório.
         </mat-error>
 

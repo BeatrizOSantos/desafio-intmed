@@ -6,7 +6,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {
   MyErrorStateMatcher,
   passwordValidator,
-} from 'src/app/shared/verificacaoSenha';
+} from 'src/app/features/register/verificacaoSenha';
 
 @Component({
   selector: 'app-register',

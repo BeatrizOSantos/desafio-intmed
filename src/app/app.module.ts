@@ -21,8 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthenticationComponent } from './features/authentication/authentication.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthenticationComponent } from './features/authentication/authentication.component';
 
 @NgModule({
   declarations: [
