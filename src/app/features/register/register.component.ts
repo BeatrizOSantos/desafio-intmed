@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.valid) {
       this.registerService
-        .postUser(this.profileForm.value)
+        .addUser(this.profileForm.value)
 
         .subscribe({
           next: (res) => {

@@ -3,13 +3,15 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   Data,
   Horario,
   Medico,
-  Especialidade,
-  AgendaDisponivel,
+  AgendasDisponiveis,
+  // Especialidade,
 } from '../../core/interfaces/consultas_d';
+import { Especialidade } from 'src/app/core/models/especialidade.model';
 
 @Component({
   selector: 'app-modal-appointment',
@@ -17,65 +19,141 @@ import {
   styleUrls: ['./modal-appointment.component.sass'],
 })
 export class ModalAppointmentComponent implements OnInit {
-  modalForm!: FormGroup;
+  criarConsultaForm!: FormGroup;
 
   especialidades!: Especialidade[];
   medicos!: Medico[];
-  datas!: Data[];
-  horarios!: Horario[];
-  agendaDisponivel!: AgendaDisponivel[];
+  horarios!: any[];
+  agendasDisponiveis!: any[];
+
+  agendaConsulta: any;
+
+  idEspecialidade!: Number;
+  idMedico!: Number;
+  idAgenda!: any;
+
+  diaConsulta!: any;
+  horaConsulta!: any;
+
+  respostaConsulta!: any[];
+
+  showErrorMedico: boolean = false;
+  showErrorDia: boolean = false;
+  showErrorHora: boolean = false;
+
+  requiredPostCreateConsulta: any = {
+    agenda_id: 0,
+    horario: '',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
     private modalService: ModalAppointmentService,
     private dialogRef: MatDialogRef<ModalAppointmentComponent>,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.modalService.getEspecialidade().subscribe((dados) => {
-      this.especialidades = dados;
+    this.criarConsultaForm = this.formBuilder.group({
+      especialidade: [null, Validators.required],
+      medico: [null, Validators.required],
+      agenda: [null, Validators.required],
+      hora: [null, Validators.required],
     });
 
-    this.modalService.getMedico().subscribe((dados) => {
-      this.medicos = dados;
-    });
+    this.getEspecialidades();
+  }
 
-    this.modalService.getDate().subscribe((dados) => {
-      this.datas = dados;
-    });
-
-    this.modalService.getHorario().subscribe((dados) => {
-      this.horarios = dados;
-    });
-
-    this.modalService.getAgendaDisponivel().subscribe((dados) => {
-      this.agendaDisponivel = dados;
-    });
-
-    this.modalForm = this.formBuilder.group({
-      especialidade: ['', Validators.required],
-      medico: ['', Validators.required],
-      dia: ['', Validators.required],
-      horario: ['', Validators.required],
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      verticalPosition: 'top',
     });
   }
 
-  submitForm() {
-    if (this.modalForm.valid) {
-      this.modalService
-        .postConsulta(this.modalForm.value)
+  getEspecialidades() {
+    this.modalService.getEspecialidades().subscribe((data) => {
+      this.especialidades = data;
+      console.log(data);
+    });
+  }
 
-        .subscribe({
-          next: (res) => {
-            alert('Consulta agendada');
-            this.modalForm.reset();
-            this.dialogRef.close('save');
-          },
-          error: () => {
-            alert('Error ao agendar consulta');
-          },
-        });
+  getMedicos() {
+    this.showErrorMedico = false;
+    this.showErrorDia = false;
+
+    this.idEspecialidade = this.criarConsultaForm.value.especialidade;
+    console.log(this.idEspecialidade);
+    if (this.idEspecialidade != null) {
+      this.modalService.getMedicos(this.idEspecialidade).subscribe((data) => {
+        this.medicos = data;
+        console.log(data);
+      });
+      this.idMedico = this.criarConsultaForm.value.medico;
+    } else {
+      this.showErrorMedico = true;
+      // this.openSnackBar('Selecione primeiro a especialidade!', 'Fechar');
     }
+  }
+
+  getAgendasDisponiveis() {
+    this.showErrorHora = false;
+
+    if (this.idMedico != null && this.idEspecialidade != null) {
+      this.modalService
+        .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
+        .subscribe((data) => {
+          this.agendasDisponiveis = data.results;
+        });
+      this.diaConsulta = this.criarConsultaForm.value.agenda;
+    } else {
+      this.showErrorDia = true;
+      // this.openSnackBar('Selecione primeiro o medico!', 'Fechar');
+    }
+  }
+
+  getHora() {
+    if (
+      this.idMedico != null &&
+      this.idEspecialidade != null &&
+      this.diaConsulta != null
+    ) {
+      this.modalService
+        .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
+        .subscribe((data) => {
+          this.respostaConsulta = data.results[0];
+          this.agendaConsulta = JSON.stringify(this.respostaConsulta);
+          this.agendaConsulta = JSON.parse(this.agendaConsulta);
+          this.horarios = this.agendaConsulta.horarios;
+          this.requiredPostCreateConsulta.agenda_id = this.agendaConsulta.id;
+        });
+      this.requiredPostCreateConsulta.horario =
+        this.criarConsultaForm.value.hora;
+    } else {
+      this.showErrorHora = true;
+      // this.openSnackBar('Selecione primeiro a data!', 'Fechar');
+    }
+  }
+
+  submitForm() {
+    this.modalService
+      .postCriarConsulta(this.requiredPostCreateConsulta)
+      .subscribe({
+        next: () => {
+          this.openSnackBar('Consulta Marcada!', 'Fechar');
+          this.dialogRef.close();
+          this.criarConsultaForm.reset();
+        },
+        error: () => {
+          this.openSnackBar('Erro!', 'Fechar');
+        },
+        complete: () => {
+          window.location.reload();
+        },
+      });
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
   }
 }

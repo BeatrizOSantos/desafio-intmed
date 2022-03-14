@@ -3,50 +3,71 @@ import {
   Medico,
   Data,
   Horario,
-  AgendaDisponivel,
+  AgendasDisponiveis,
   Consulta,
 } from '../interfaces/consultas_d';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { ResponseEspecialidades } from '../models/response-list.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalAppointmentService {
-  private readonly endpointEspecialidade =
-    'http://localhost:3000/especialidades';
-  private readonly endpointAgendaDisponivel =
-    'http://localhost:3000/agendas-disponiveis';
-  private readonly endpointMedico = 'http://localhost:3000/medicos';
-  private readonly endpointConsulta = 'http://localhost:3000/consultas';
+  // private readonly endpointEspecialidade =
+  //   'http://localhost:3000/especialidades';
+  // private readonly endpointAgendaDisponivel =
+  //   'http://localhost:3000/agendas-disponiveis';
+  // private readonly endpointMedico = 'http://localhost:3000/medicos';
+  // private readonly endpointConsulta = 'http://localhost:3000/consultas';
 
   constructor(private http: HttpClient) {}
 
-  public getEspecialidade() {
-    return this.http.get<Especialidade[]>(this.endpointEspecialidade);
+  public getEspecialidades(): Observable<Especialidade[]> {
+    return this.http.get<Especialidade[]>(
+      environment['api'] + '/especialidades/'
+    );
   }
 
-  public getAgendaDisponivel() {
-    return this.http.get<AgendaDisponivel[]>(this.endpointAgendaDisponivel);
+  public getMedicos(especialidade: Number): Observable<Medico[]> {
+    return this.http.get<Medico[]>(
+      environment['api'] + '/medicos/' + '?especialidade=' + especialidade
+    );
+  }
+  // ?search=maria&especialidade=1&especialidade=3
+
+  getAgendasDisponiveis(medico: any, especialidade: any): Observable<any> {
+    return this.http.get<ResponseEspecialidades>(
+      environment['api'] +
+        '/agendas/' +
+        '?medico=' +
+        medico +
+        '&especialidade=' +
+        especialidade
+    );
   }
 
-  public getMedico() {
-    return this.http.get<Medico[]>(this.endpointMedico);
+  getAgenda(
+    medico: Number,
+    especialidade: Number,
+    data: String
+  ): Observable<any> {
+    return this.http.get<ResponseEspecialidades>(
+      environment['api'] +
+        '/agendas/' +
+        medico +
+        '.especialidade=' +
+        especialidade +
+        '&data_inicio=' +
+        data +
+        '&data_final=' +
+        data
+    );
   }
 
-  public getDate() {
-    return this.http.get<Data[]>(this.endpointAgendaDisponivel);
-  }
-
-  public getHorario() {
-    return this.http.get<Horario[]>(this.endpointAgendaDisponivel);
-  }
-
-  public postConsulta(data: Consulta) {
-    return this.http.post<Consulta[]>(this.endpointConsulta, data);
-  }
-
-  public getConsulta() {
-    return this.http.get<Consulta[]>(this.endpointConsulta);
+  public postCriarConsulta(consulta: any): Observable<any> {
+    return this.http.post(environment['api'] + '/consultas/', consulta);
   }
 }

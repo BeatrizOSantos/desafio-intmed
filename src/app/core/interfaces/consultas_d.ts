@@ -1,4 +1,4 @@
-export interface AgendaDisponivel {
+export interface AgendasDisponiveis {
   id: number;
   medico: Medico;
   dia: string;

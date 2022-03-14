@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Consulta } from '../../core/interfaces/consultas_d';
 import { ModalAppointmentComponent } from '../modal-appointment/modal-appointment.component';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -29,11 +30,18 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private modalService: ModalAppointmentService,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.AllConsultas();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      verticalPosition: 'top',
+    });
   }
 
   openDialog() {
@@ -43,6 +51,7 @@ export class HomeComponent implements OnInit {
   AllConsultas() {
     this.homeService.getConsulta().subscribe((consultas) => {
       this.responseConsultas = consultas;
+      // this.responseConsultas = consultas.results;
     });
   }
 
@@ -53,5 +62,12 @@ export class HomeComponent implements OnInit {
   public logout() {
     window.sessionStorage.removeItem('username');
     this.router.navigate(['/login']);
+  }
+
+  deleteConsulta(id: any) {
+    this.homeService.deleteConsulta(id).subscribe(() => {
+      this.openSnackBar('Consulta deletada!', 'Fechar');
+      window.location.reload();
+    });
   }
 }
