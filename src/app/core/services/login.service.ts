@@ -19,7 +19,6 @@ export class LoginService {
     if (result) {
       window.sessionStorage.setItem('token', JSON.stringify(result.token));
     }
-    console.log(result);
   }
 
   // public getUser() {

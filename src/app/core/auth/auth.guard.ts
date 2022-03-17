@@ -18,7 +18,6 @@ export class AuthGuard implements CanActivate {
   ): boolean {
     const token = window.sessionStorage.getItem('token');
 
-    console.log('entrou1');
     if (token) {
       console.log('entrou2');
       return true;

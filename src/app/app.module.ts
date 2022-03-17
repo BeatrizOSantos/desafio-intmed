@@ -22,7 +22,6 @@ import { ModalAppointmentComponent } from './features/modal-appointment/modal-ap
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AltoTokenInterceptor } from './app.interceptor.module';
 import { httpInterceptorProviders } from './core/http-interceptors';
 
 @NgModule({
