@@ -43,5 +43,5 @@ export interface Consulta {
 
 export interface Login {
   username: string;
-  senha: string;
+  password: string;
 }

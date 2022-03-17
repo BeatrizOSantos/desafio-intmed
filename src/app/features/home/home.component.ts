@@ -16,6 +16,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomeComponent implements OnInit {
   homeForm!: FormGroup;
 
+  user: any;
+
   responseConsultas!: Consulta[];
 
   displayedColumns: string[] = [
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.AllConsultas();
+    this.user = localStorage.getItem('User');
   }
 
   openSnackBar(message: string, action: string) {
@@ -55,14 +58,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public get username() {
-    return window.sessionStorage.getItem('username');
-  }
-
-  public logout() {
-    window.sessionStorage.removeItem('username');
+  logout() {
+    window.sessionStorage.removeItem('token');
+    window.sessionStorage.removeItem('User');
     this.router.navigate(['/login']);
   }
+
+  // public get username() {
+  //   return window.sessionStorage.getItem('username');
+  // }
+
+  // public logout() {
+  //   window.sessionStorage.removeItem('username');
+  //   this.router.navigate(['/login']);
+  // }
 
   deleteConsulta(id: any) {
     this.homeService.deleteConsulta(id).subscribe(() => {

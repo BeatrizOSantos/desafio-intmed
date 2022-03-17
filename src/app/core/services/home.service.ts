@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HomeService {
-  // private readonly endpointConsulta = 'http://localhost:3000/consultas';
-
   constructor(private http: HttpClient) {}
 
   // public postConsulta(data: Consulta) {
@@ -17,10 +15,10 @@ export class HomeService {
   // }
 
   public getConsulta(): Observable<any> {
-    return this.http.get<any>(environment['api'] + '/consultas/');
+    return this.http.get<any>(environment['api'] + 'consultas/');
   }
 
   public deleteConsulta(id: any): Observable<any> {
-    return this.http.delete<any>(environment['api'] + '/consultas/' + id, id);
+    return this.http.delete<any>(environment['api'] + 'consultas/' + id, id);
   }
 }

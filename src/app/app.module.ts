@@ -20,9 +20,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
 import { MatSelectModule } from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AuthenticationComponent } from './features/authentication/authentication.component';
+import { AltoTokenInterceptor } from './app.interceptor.module';
+import { httpInterceptorProviders } from './core/http-interceptors';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,6 @@ import { AuthenticationComponent } from './features/authentication/authenticatio
     HomeComponent,
     RegisterComponent,
     ModalAppointmentComponent,
-    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,7 @@ import { AuthenticationComponent } from './features/authentication/authenticatio
     HttpClientModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

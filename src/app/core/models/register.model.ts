@@ -1,9 +1,4 @@
 export class User {
-  username!: String;
-  email?: String;
+  username!: string;
   password!: string;
-}
-
-export class Token {
-  token: any;
 }
