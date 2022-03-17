@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
       this.user.username = this.loginForm.get('username')?.value;
       this.user.password = this.loginForm.get('password')?.value;
       await this.loginService.login(this.user);
+      sessionStorage.setItem('username', this.user.username);
       this.router.navigate(['']);
     } catch (error) {
       this.loginForm.reset();

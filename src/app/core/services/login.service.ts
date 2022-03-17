@@ -16,6 +16,7 @@ export class LoginService {
     const result = await firstValueFrom(
       this.http.post<any>(environment['api'] + 'users/login/', login)
     );
+    console.log(result);
     if (result) {
       window.sessionStorage.setItem('token', JSON.stringify(result.token));
     }

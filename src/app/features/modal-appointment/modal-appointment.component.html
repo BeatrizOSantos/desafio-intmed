@@ -43,8 +43,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Hora</mat-label>
           <mat-select formControlName="hora" (click)="getHora()">
-            <mat-option *ngFor="let hora of horarios" [value]="hora.horarios">
-              {{ hora.horarios }}
+            <mat-option *ngFor="let hora of horarios" [value]="hora">
+              {{ hora }}
             </mat-option>
           </mat-select>
         </mat-form-field>

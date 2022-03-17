@@ -28,8 +28,8 @@ export class ModalAppointmentComponent implements OnInit {
 
   agendaConsulta: any;
 
-  idEspecialidade!: Number;
-  idMedico!: Number;
+  idEspecialidade!: any;
+  idMedico!: any;
   idAgenda!: any;
 
   diaConsulta!: any;
@@ -41,7 +41,7 @@ export class ModalAppointmentComponent implements OnInit {
   showErrorDia: boolean = false;
   showErrorHora: boolean = false;
 
-  requiredPostCreateConsulta: any = {
+  requiredPostCreateConsulta = {
     agenda_id: 0,
     horario: '',
   };
@@ -74,6 +74,7 @@ export class ModalAppointmentComponent implements OnInit {
   getEspecialidades() {
     this.modalService.getEspecialidades().subscribe((data) => {
       this.especialidades = data;
+      // this.getMedicos();
       console.log(data);
     });
   }
@@ -83,8 +84,8 @@ export class ModalAppointmentComponent implements OnInit {
     this.showErrorDia = false;
 
     this.idEspecialidade = this.criarConsultaForm.value.especialidade;
-    console.log(this.idEspecialidade);
     if (this.idEspecialidade != null) {
+      console.log(this.idEspecialidade);
       this.modalService.getMedicos(this.idEspecialidade).subscribe((data) => {
         this.medicos = data;
         console.log(data);
@@ -97,60 +98,64 @@ export class ModalAppointmentComponent implements OnInit {
   }
 
   getAgendasDisponiveis() {
+    console.log('entrou');
     this.showErrorHora = false;
 
-    if (this.idMedico != null && this.idEspecialidade != null) {
+    try {
+      console.log('entrou2');
       this.modalService
         .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
         .subscribe((data) => {
-          this.agendasDisponiveis = data.results;
+          this.agendasDisponiveis = data;
+          console.log(data);
         });
       this.diaConsulta = this.criarConsultaForm.value.agenda;
-    } else {
+    } catch (error) {
       this.showErrorDia = true;
       // this.openSnackBar('Selecione primeiro o medico!', 'Fechar');
     }
   }
 
   getHora() {
-    if (
-      this.idMedico != null &&
-      this.idEspecialidade != null &&
-      this.diaConsulta != null
-    ) {
+    console.log('entrouhora');
+    try {
+      console.log('entrouhora2');
       this.modalService
         .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
         .subscribe((data) => {
-          this.respostaConsulta = data.results[0];
-          this.agendaConsulta = JSON.stringify(this.respostaConsulta);
-          this.agendaConsulta = JSON.parse(this.agendaConsulta);
-          this.horarios = this.agendaConsulta.horarios;
-          this.requiredPostCreateConsulta.agenda_id = this.agendaConsulta.id;
+          console.log('data: ', data);
+          // this.respostaConsulta = data;
+          // this.agendaConsulta = JSON.stringify(this.respostaConsulta);
+          // this.agendaConsulta = JSON.parse(this.agendaConsulta);
+          this.horarios = data[0].horarios;
+          console.log('data id:', data[0].id);
+          this.requiredPostCreateConsulta.agenda_id = data[0].id;
         });
-      this.requiredPostCreateConsulta.horario =
-        this.criarConsultaForm.value.hora;
-    } else {
+    } catch (error) {
       this.showErrorHora = true;
       // this.openSnackBar('Selecione primeiro a data!', 'Fechar');
     }
   }
 
   submitForm() {
-    this.modalService
-      .postCriarConsulta(this.requiredPostCreateConsulta)
-      .subscribe({
-        next: () => {
-          this.openSnackBar('Consulta Marcada!', 'Fechar');
-          this.dialogRef.close();
-          this.criarConsultaForm.reset();
-        },
-        error: () => {
-          this.openSnackBar('Erro!', 'Fechar');
-        },
-        complete: () => {
-          window.location.reload();
-        },
-      });
+    try {
+      this.requiredPostCreateConsulta.horario =
+        this.criarConsultaForm.value.hora;
+      console.log(this.requiredPostCreateConsulta);
+      this.modalService
+        .postCriarConsulta(this.requiredPostCreateConsulta)
+        .subscribe({
+          next: () => {
+            this.openSnackBar('Consulta Marcada!', 'Fechar');
+            this.dialogRef.close();
+            this.criarConsultaForm.reset();
+          },
+          error: () => {
+            this.openSnackBar('Erro!', 'Fechar');
+          },
+          complete: () => {},
+        });
+    } catch (error) {}
   }
 
   cancel(): void {

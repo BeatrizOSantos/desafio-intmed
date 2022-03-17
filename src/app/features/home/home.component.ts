@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.AllConsultas();
-    this.user = localStorage.getItem('User');
+    this.getUsername();
   }
 
   openSnackBar(message: string, action: string) {
@@ -47,8 +47,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getUsername() {
+    return sessionStorage.getItem('username');
+  }
+
   openDialog() {
-    this.dialog.open(ModalAppointmentComponent);
+    const dialogRef = this.dialog.open(ModalAppointmentComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.AllConsultas();
+    });
   }
 
   AllConsultas() {
@@ -76,7 +83,7 @@ export class HomeComponent implements OnInit {
   deleteConsulta(id: any) {
     this.homeService.deleteConsulta(id).subscribe(() => {
       this.openSnackBar('Consulta deletada!', 'Fechar');
-      window.location.reload();
+      this.AllConsultas();
     });
   }
 }

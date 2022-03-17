@@ -24,38 +24,35 @@ export class ModalAppointmentService {
     );
   }
 
-  public getMedicos(especialidade: Number): Observable<Medico[]> {
+  public getMedicos(idEspecialidade: string): Observable<Medico[]> {
     return this.http.get<Medico[]>(
-      environment['api'] + 'medicos/' + '?especialidade=' + especialidade
+      environment['api'] + 'medicos/' + '?especialidade=' + idEspecialidade
     );
   }
 
-  getAgendasDisponiveis(medico: any, especialidade: any): Observable<any> {
-    return this.http.get<ResponseEspecialidades>(
-      environment['api'] +
-        'agendas/' +
-        '?medico=' +
-        medico +
-        '&especialidade=' +
-        especialidade
-    );
-  }
-
-  getAgenda(
-    medico: Number,
-    especialidade: Number,
-    data: String
+  getAgendasDisponiveis(
+    idMedico: string,
+    idEspecialidade: string
   ): Observable<any> {
     return this.http.get<ResponseEspecialidades>(
       environment['api'] +
         'agendas/' +
-        medico +
-        '.especialidade=' +
-        especialidade +
-        '&data_inicio=' +
-        data +
-        '&data_final=' +
-        data
+        '?medico=' +
+        idMedico +
+        '&especialidade=' +
+        idEspecialidade
+    );
+    // /agendas/?medico=1&especialidade=2&data_inicio=2020-01-01&data_final=2020-01-05
+  }
+
+  getAgenda(
+    idMedico: string,
+    idEspecialidade: string,
+    data: string
+  ): Observable<any> {
+    return this.http.get<ResponseEspecialidades>(
+      environment['api'] +
+        `agendas/?medico=${idMedico}&especialidade=${idEspecialidade}&data_inicio=${data}&data_final=${data}`
     );
   }
 
