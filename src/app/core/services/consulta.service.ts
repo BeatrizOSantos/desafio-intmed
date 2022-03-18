@@ -12,6 +12,7 @@ export class ConsultaService {
   public postCriarConsulta(consulta: any): Observable<any> {
     return this.http.post(environment['api'] + 'consultas/', consulta);
   }
+
   public getConsulta(): Observable<any> {
     return this.http.get<any>(environment['api'] + 'consultas/');
   }

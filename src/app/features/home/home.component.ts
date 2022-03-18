@@ -1,7 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 import { ConsultaService } from 'src/app/core/services/consulta.service';
 import { FormGroup } from '@angular/forms';
-import { HomeService } from 'src/app/core/services/home.service';
-import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Consulta } from '../../core/interfaces/consultas_d';
 import { ModalAppointmentComponent } from '../modal-appointment/modal-appointment.component';
