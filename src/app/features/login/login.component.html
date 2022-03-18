@@ -13,36 +13,43 @@
         <mat-label>Email ou Login</mat-label>
         <input
           type="email"
-          name="email"
+          name="username"
           formControlName="username"
-          id="email"
+          id="username"
           matInput
+          required
+          #usernameInput
         />
 
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
           Campo obrigatório.
         </mat-error>
 
-        <mat-error *ngIf="loginForm.get('email')?.hasError('minlength')">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('minlength')">
           O Campo deve ter pelo menos 4 caracteres.
         </mat-error>
 
-        <mat-error *ngIf="loginForm.get('email')?.hasError('maxlength')">
+        <mat-error *ngIf="loginForm.get('username')?.hasError('maxlength')">
           O Campo pode ter até no máximo 150 caracteres.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="senha" [style.width.px]="400" appearance="outline">
+      <mat-form-field
+        class="password"
+        [style.width.px]="400"
+        appearance="outline"
+      >
         <mat-label>Senha</mat-label>
         <input
           type="password"
-          name="senha"
-          formControlName="senha"
-          id="senha"
+          name="password"
+          formControlName="password"
+          id="password"
           matInput
           [type]="hide ? 'password' : 'text'"
           required
           minlength="8"
+          #passwordInput
         />
 
         <button
@@ -55,15 +62,15 @@
           <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
 
-        <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
           Senha obrigatória.
         </mat-error>
 
-        <mat-error *ngIf="loginForm.get('senha')?.hasError('minlength')">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
           A senha deve ter pelo menos 8 caracteres.
         </mat-error>
 
-        <mat-error *ngIf="loginForm.get('senha')?.hasError('maxlength')">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('maxlength')">
           A senha pode ter até no máximo 40 caracteres.
         </mat-error>
       </mat-form-field>
@@ -90,7 +97,7 @@
         color="primary"
         [style.width.px]="180"
         [disabled]="loginForm.pristine || loginForm.invalid"
-        (click)="onSubmit()"
+        (click)="submitLogin()"
       >
         Acessar
       </button>

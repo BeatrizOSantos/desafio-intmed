@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -21,8 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalAppointmentComponent } from './features/modal-appointment/modal-appointment.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthenticationComponent } from './features/authentication/authentication.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { httpInterceptorProviders } from './core/http-interceptors';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     RegisterComponent,
     ModalAppointmentComponent,
-    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +49,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
+import { ConsultaService } from 'src/app/core/services/consulta.service';
 import { FormGroup } from '@angular/forms';
 import { HomeService } from 'src/app/core/services/home.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Consulta } from '../../core/interfaces/consultas_d';
 import { ModalAppointmentComponent } from '../modal-appointment/modal-appointment.component';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   homeForm!: FormGroup;
+
+  user: any;
 
   responseConsultas!: Consulta[];
 
@@ -28,30 +31,49 @@ export class HomeComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private modalService: ModalAppointmentService,
-    private homeService: HomeService
+    private _snackBar: MatSnackBar,
+    private consultaService: ConsultaService
   ) {}
 
   ngOnInit(): void {
     this.AllConsultas();
+    this.getUsername();
+  }
+
+  openSnackBarGreen(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      verticalPosition: 'top',
+      panelClass: 'green',
+    });
+  }
+
+  getUsername() {
+    return sessionStorage.getItem('username');
   }
 
   openDialog() {
-    this.dialog.open(ModalAppointmentComponent);
+    const dialogRef = this.dialog.open(ModalAppointmentComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.AllConsultas();
+    });
   }
 
   AllConsultas() {
-    this.homeService.getConsulta().subscribe((consultas) => {
+    this.consultaService.getConsulta().subscribe((consultas) => {
       this.responseConsultas = consultas;
     });
   }
 
-  public get username() {
-    return window.sessionStorage.getItem('username');
-  }
-
-  public logout() {
+  logout() {
+    window.sessionStorage.removeItem('token');
     window.sessionStorage.removeItem('username');
     this.router.navigate(['/login']);
+  }
+
+  deleteConsulta(id: any) {
+    this.consultaService.deleteConsulta(id).subscribe(() => {
+      this.openSnackBarGreen('Consulta deletada!', 'Fechar');
+      this.AllConsultas();
+    });
   }
 }

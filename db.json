@@ -1,13 +1,13 @@
 {
-  "agendas-disponiveis": [
+  "agendas": [
     {
       "id": 1,
       "medico": {
-        "id": 3,
+        "id": 1,
         "crm": 3087,
         "nome": "Tony Tony Chopper",
         "especialidade": {
-          "id": 2,
+          "id": 1,
           "nome": "Pediatria"
         }
       },
@@ -25,7 +25,7 @@
         "crm": 2544,
         "nome": "Gregory House",
         "especialidade": {
-          "id": 3,
+          "id": 2,
           "nome": "Cardiologia"
         }
       },
@@ -55,18 +55,11 @@
       "id": 2
     },
     {
-      "nome": "Beatriz",
-      "email": "beatrizodsk@gmail.com",
+      "nome": "Nicholas Timbó",
+      "email": "nicholastn@hotmail.com",
       "senha": "12345678",
       "confirmarSenha": "12345678",
       "id": 3
-    },
-    {
-      "nome": "Beatriz Oliveira",
-      "email": "beatriz.oliveira@portfoliotech.com.br",
-      "senha": "12345678",
-      "confirmarSenha": "12345678",
-      "id": 4
     }
   ],
   "especialidades": [
@@ -76,24 +69,16 @@
     },
     {
       "id": 2,
-      "nome": "Ginecologia"
-    },
-    {
-      "id": 3,
       "nome": "Cardiologia"
-    },
-    {
-      "id": 4,
-      "nome": "Clínico Geral"
     }
   ],
   "medicos": [
     {
       "id": 1,
-      "crm": 3711,
-      "nome": "Drauzio Varella",
+      "crm": 3087,
+      "nome": "Tony Tony Chopper",
       "especialidade": {
-        "id": 2,
+        "id": 1,
         "nome": "Pediatria"
       }
     },
@@ -102,33 +87,24 @@
       "crm": 2544,
       "nome": "Gregory House",
       "especialidade": {
-        "id": 3,
-        "nome": "Cardiologia"
-      }
-    },
-    {
-      "id": 3,
-      "crm": 3087,
-      "nome": "Tony Tony Chopper",
-      "especialidade": {
         "id": 2,
-        "nome": "Pediatria"
+        "nome": "Cardiologia"
       }
     }
   ],
   "consultas": [
     {
       "id": 1,
-      "dia": "2020-02-05",
-      "horario": "12:00",
-      "data_agendamento": "2020-02-01T10:45:0-03:00",
+      "dia": "2020-03-01",
+      "horario": "13:00",
+      "data_agendamento": "2020-05-07T13:45:0-03:00",
       "medico": {
-        "id": 2,
-        "crm": 2544,
-        "nome": "Gregory House",
+        "id": 1,
+        "crm": 3087,
+        "nome": "Tony Tony Chopper",
         "especialidade": {
-          "id": 3,
-          "nome": "Cardiologia"
+          "id": 1,
+          "nome": "Pediatria"
         }
       }
     },
@@ -138,12 +114,12 @@
       "horario": "09:00",
       "data_agendamento": "2020-02-01T10:45:0-03:00",
       "medico": {
-        "id": 1,
-        "crm": 3711,
-        "nome": "Drauzio Varella",
+        "id": 2,
+        "crm": 2544,
+        "nome": "Gregory House",
         "especialidade": {
           "id": 2,
-          "nome": "Pediatria"
+          "nome": "Cardiologia"
         }
       }
     }
@@ -156,49 +132,9 @@
       "senha": 12345678
     },
     {
-      "username": "beatriz.oliveira@portfoliotech.com.br",
+      "username": "Beatriz Santos",
       "senha": "12345678",
       "id": 2
-    },
-    {
-      "username": "beatriz.oliveira@intmed.com.br",
-      "senha": "12345678",
-      "id": 3
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 4
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 5
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 6
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 7
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 8
-    },
-    {
-      "username": "Beatriz Santos",
-      "senha": "12345678",
-      "id": 9
-    },
-    {
-      "username": "beatriz.oliveira@intmed.com.br",
-      "senha": "12345678",
-      "id": 10
     }
   ]
 }

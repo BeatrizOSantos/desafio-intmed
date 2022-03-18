@@ -6,7 +6,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {
   MyErrorStateMatcher,
   passwordValidator,
-} from 'src/app/shared/verificacaoSenha';
+} from 'src/app/features/register/verificacaoSenha';
+import { User } from 'src/app/core/models/register.model';
 
 @Component({
   selector: 'app-register',
@@ -64,6 +65,7 @@ export class RegisterComponent implements OnInit {
 
   openSnackBarGreen(message: string, action: string) {
     this._snackBar.open(message, action, {
+      verticalPosition: 'top',
       panelClass: 'green',
     });
   }
@@ -71,24 +73,24 @@ export class RegisterComponent implements OnInit {
   openSnackBarRed(message: string, action: string) {
     this._snackBar.open(message, action, {
       panelClass: 'red',
+      verticalPosition: 'top',
     });
   }
 
-  onSubmit() {
-    if (this.profileForm.valid) {
-      this.registerService
-        .postUser(this.profileForm.value)
-
-        .subscribe({
-          next: (res) => {
-            this.openSnackBarGreen('Cadastro efetuado com sucesso!', 'Fechar');
-            this.profileForm.reset();
-            this.router.navigate(['/login']);
-          },
-          error: () => {
-            this.openSnackBarRed('Erro ao criar usuário!', 'Fechar');
-          },
-        });
-    }
+  createUser() {
+    this.registerService.createUser(this.profileForm.value).subscribe(
+      (userResponse) => {
+        this.userResponse = userResponse;
+        this.openSnackBarGreen('Cadastro efetuado com sucesso!', 'Fechar');
+        this.router.navigate(['/login']);
+      },
+      (serverError) => {
+        this.errorMessageUser = serverError.error.non_field_errors;
+        this.openSnackBarRed('Erro ao criar usuário!', 'Fechar');
+      }
+    );
+  }
+  cancel() {
+    this.router.navigate(['']);
   }
 }

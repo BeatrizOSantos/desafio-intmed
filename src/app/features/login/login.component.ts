@@ -1,10 +1,9 @@
-import { RegisterService } from 'src/app/core/services/register.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/core/services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Login } from 'src/app/core/interfaces/consultas_d';
+import { User } from 'src/app/core/models/register.model';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +13,27 @@ import { Login } from 'src/app/core/interfaces/consultas_d';
 export class LoginComponent implements OnInit {
   hide = true;
 
+  isAuthenticate: boolean = false;
+  showSpiner: boolean = false;
+
+  tokenAuthorization: any;
+  errorMessage: string = '';
+
   loginForm!: FormGroup;
+
+  @ViewChild('usernameInput') usernameInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private registerService: RegisterService,
     private _snackBar: MatSnackBar
   ) {}
 
-  login: Login = {
+  user: User = {
     username: '',
-    senha: '',
+    password: '',
   };
 
   ngOnInit(): void {
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
           Validators.maxLength(150),
         ],
       ],
-      senha: [
+      password: [
         '',
         [
           Validators.required,
@@ -50,22 +57,30 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      verticalPosition: 'top',
-    });
-  }
-
-  async onSubmit() {
+  async submitLogin() {
     try {
-      const result = await this.loginService.login(this.loginForm.value);
-      window.sessionStorage.setItem(
-        'username',
-        this.loginForm.controls['username'].value
-      );
+      this.user.username = this.loginForm.get('username')?.value;
+      this.user.password = this.loginForm.get('password')?.value;
+      await this.loginService.login(this.user);
+      sessionStorage.setItem('username', this.user.username);
       this.router.navigate(['']);
     } catch (error) {
-      this.openSnackBar('Erro ao efetuar o login!', 'Fechar');
+      this.loginForm.reset();
+      this.usernameInput.nativeElement.focus();
+      this.passwordInput.nativeElement.focus();
+      this.openSnackBarRed('Nome de usuário ou senha inválidos!', 'Fechar');
     }
+  }
+
+  getTokenAuthorization() {
+    this.tokenAuthorization = localStorage.getItem('tokenUser');
+    this.isAuthenticate = this.tokenAuthorization != null;
+  }
+
+  openSnackBarRed(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      panelClass: 'red',
+      verticalPosition: 'top',
+    });
   }
 }
