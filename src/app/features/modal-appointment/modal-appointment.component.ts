@@ -82,48 +82,59 @@ export class ModalAppointmentComponent implements OnInit {
     this.showErrorDia = false;
 
     this.idEspecialidade = this.criarConsultaForm.value.especialidade;
-    if (this.idEspecialidade != null) {
-      this.modalService.getMedicos(this.idEspecialidade).subscribe((data) => {
-        this.medicos = data;
-      });
+    try {
+      if (this.idEspecialidade != null) {
+        this.modalService.getMedicos(this.idEspecialidade).subscribe((data) => {
+          this.medicos = data;
+        });
+      } else {
+        this.showErrorMedico = true;
+        this.openSnackBarRed('Selecione primeiro a especialidade!', 'Fechar');
+      }
       this.idMedico = this.criarConsultaForm.value.medico;
-    } else {
-      this.showErrorMedico = true;
-      this.openSnackBarRed('Selecione primeiro a especialidade!', 'Fechar');
+    } catch (error) {
+      this.openSnackBarRed('Erro!', 'Fechar');
     }
   }
 
   getAgendasDisponiveis() {
     this.showErrorHora = false;
 
-    if (this.idMedico != null && this.idEspecialidade != null) {
-      this.modalService
-        .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
-        .subscribe((data) => {
-          this.agendasDisponiveis = data;
-        });
+    /*OBS: como o filtro da api está retornando mais de um médico, não foi possível pegar o idMedico nem o diaConsulta; Ex: GET /agendas/?medico=1&especialidade=2
+    No caso correto o if ficaria assim: if (this.idMedico != null && this.idEspecialidade != null) */
+    try {
+      if (this.idEspecialidade != null) {
+        this.modalService
+          .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
+          .subscribe((data) => {
+            this.agendasDisponiveis = data;
+          });
+      } else {
+        this.showErrorDia = true;
+        this.openSnackBarRed('Selecione primeiro o medico!', 'Fechar');
+      }
       this.diaConsulta = this.criarConsultaForm.value.agenda;
-    } else {
-      this.showErrorDia = true;
-      this.openSnackBarRed('Selecione primeiro o medico!', 'Fechar');
+    } catch (error) {
+      this.openSnackBarRed('Erro!', 'Fechar');
     }
   }
 
+  /*OBS: No caso correto o if ficaria assim: if (this.idMedico != null && this.idEspecialidade != null && this.diaConsulta != null)  */
   getHora() {
-    if (
-      this.idMedico != null &&
-      this.idEspecialidade != null &&
-      this.diaConsulta != null
-    ) {
-      this.modalService
-        .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
-        .subscribe((data) => {
-          this.horarios = data[0].horarios;
-          this.requiredPostCreateConsulta.agenda_id = data[0].id;
-        });
-    } else {
-      this.showErrorHora = true;
-      this.openSnackBarRed('Selecione primeiro a data!', 'Fechar');
+    try {
+      if (this.idEspecialidade != null) {
+        this.modalService
+          .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
+          .subscribe((data) => {
+            this.horarios = data[0].horarios;
+            this.requiredPostCreateConsulta.agenda_id = data[0].id;
+          });
+      } else {
+        this.showErrorHora = true;
+        this.openSnackBarRed('Selecione primeiro a data!', 'Fechar');
+      }
+    } catch (error) {
+      this.openSnackBarRed('Erro!', 'Fechar');
     }
   }
 
@@ -144,7 +155,9 @@ export class ModalAppointmentComponent implements OnInit {
           },
           complete: () => {},
         });
-    } catch (error) {}
+    } catch (error) {
+      this.openSnackBarRed('Erro!', 'Fechar');
+    }
   }
 
   cancel(): void {
