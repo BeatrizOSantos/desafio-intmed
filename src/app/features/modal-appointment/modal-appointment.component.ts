@@ -96,28 +96,32 @@ export class ModalAppointmentComponent implements OnInit {
   getAgendasDisponiveis() {
     this.showErrorHora = false;
 
-    try {
+    if (this.idMedico != null && this.idEspecialidade != null) {
       this.modalService
         .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
         .subscribe((data) => {
           this.agendasDisponiveis = data;
         });
       this.diaConsulta = this.criarConsultaForm.value.agenda;
-    } catch (error) {
+    } else {
       this.showErrorDia = true;
       this.openSnackBarRed('Selecione primeiro o medico!', 'Fechar');
     }
   }
 
   getHora() {
-    try {
+    if (
+      this.idMedico != null &&
+      this.idEspecialidade != null &&
+      this.diaConsulta != null
+    ) {
       this.modalService
         .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
         .subscribe((data) => {
           this.horarios = data[0].horarios;
           this.requiredPostCreateConsulta.agenda_id = data[0].id;
         });
-    } catch (error) {
+    } else {
       this.showErrorHora = true;
       this.openSnackBarRed('Selecione primeiro a data!', 'Fechar');
     }

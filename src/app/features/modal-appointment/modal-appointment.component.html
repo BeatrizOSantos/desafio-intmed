@@ -70,6 +70,7 @@
           mat-button
           color="primary"
           [style.width.px]="180"
+          [disabled]="criarConsultaForm.invalid"
           (click)="submitForm()"
         >
           Confirmar
