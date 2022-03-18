@@ -81,57 +81,10 @@ export class LoginComponent implements OnInit {
     this.isAuthenticate = this.tokenAuthorization != null;
   }
 
-  // loginSubmit() {
-  //   this.loginService.login(this.loginForm.value).subscribe({
-  //     next: (data: Token) => {
-  //       if (data) {
-  //         localStorage.setItem('tokenUser', data.token);
-  //         localStorage.setItem('User', this.loginForm.value.username);
-  //         this.getTokenAuthorization();
-  //         this.router.navigate(['login/home']);
-  //       }
-  //     },
-  //     error: () => {
-  //       this.openSnackBar('Nome de usuário ou senha inválidos!', 'Fechar');
-  //     },
-  //   });
-  //   this.showSpiner = true;
-  // }
-
-  // loginSubmit() {
-  //   const username = this.loginForm.get('username')?.value;
-  //   const password = this.loginForm.get('password')?.value;
-
-  //   return this.authService.authenticate(username, password).subscribe({
-  //     next: () => {
-  //       this.router.navigate(['users', username]);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //       this.loginForm.reset();
-  //       this.usernameInput.nativeElement.focus();
-  //       this.passwordInput.nativeElement.focus();
-  //       this.openSnackBar('Nome de usuário ou senha inválidos!', 'Fechar');
-  //     },
-  //   });
-  // }
-
   openSnackBarRed(message: string, action: string) {
     this._snackBar.open(message, action, {
+      panelClass: 'red',
       verticalPosition: 'top',
     });
   }
-
-  // async onSubmit() {
-  //   try {
-  //     const result = await this.loginService.login(this.loginForm.value);
-  //     window.sessionStorage.setItem(
-  //       'username',
-  //       this.loginForm.controls['username'].value
-  //     );
-  //     this.router.navigate(['']);
-  //   } catch (error) {
-  //     this.openSnackBar('Erro ao efetuar o login!', 'Fechar');
-  //   }
-  // }
 }

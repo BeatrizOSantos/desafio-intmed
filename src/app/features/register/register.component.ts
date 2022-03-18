@@ -93,22 +93,4 @@ export class RegisterComponent implements OnInit {
   cancel() {
     this.router.navigate(['']);
   }
-
-  // onSubmit() {
-  //   if (this.profileForm.valid) {
-  //     this.registerService
-  //       .addUser(this.profileForm.value)
-
-  //       .subscribe({
-  //         next: (res) => {
-  //           this.openSnackBarGreen('Cadastro efetuado com sucesso!', 'Fechar');
-  //           this.profileForm.reset();
-  //           this.router.navigate(['/login']);
-  //         },
-  //         error: () => {
-  //           this.openSnackBarRed('Erro ao criar usuário!', 'Fechar');
-  //         },
-  //       });
-  //   }
-  // }
 }

@@ -1,4 +1,4 @@
-import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
+import { ConsultaService } from 'src/app/core/services/consulta.service';
 import { FormGroup } from '@angular/forms';
 import { HomeService } from 'src/app/core/services/home.service';
 import { Component, OnInit } from '@angular/core';
@@ -31,9 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private modalService: ModalAppointmentService,
-    private homeService: HomeService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private consultaService: ConsultaService
   ) {}
 
   ngOnInit(): void {
@@ -41,9 +40,10 @@ export class HomeComponent implements OnInit {
     this.getUsername();
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBarGreen(message: string, action: string) {
     this._snackBar.open(message, action, {
       verticalPosition: 'top',
+      panelClass: 'green',
     });
   }
 
@@ -59,30 +59,20 @@ export class HomeComponent implements OnInit {
   }
 
   AllConsultas() {
-    this.homeService.getConsulta().subscribe((consultas) => {
+    this.consultaService.getConsulta().subscribe((consultas) => {
       this.responseConsultas = consultas;
-      // this.responseConsultas = consultas.results;
     });
   }
 
   logout() {
     window.sessionStorage.removeItem('token');
-    window.sessionStorage.removeItem('User');
+    window.sessionStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
 
-  // public get username() {
-  //   return window.sessionStorage.getItem('username');
-  // }
-
-  // public logout() {
-  //   window.sessionStorage.removeItem('username');
-  //   this.router.navigate(['/login']);
-  // }
-
   deleteConsulta(id: any) {
-    this.homeService.deleteConsulta(id).subscribe(() => {
-      this.openSnackBar('Consulta deletada!', 'Fechar');
+    this.consultaService.deleteConsulta(id).subscribe(() => {
+      this.openSnackBarGreen('Consulta deletada!', 'Fechar');
       this.AllConsultas();
     });
   }

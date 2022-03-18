@@ -8,12 +8,4 @@ import { Observable } from 'rxjs';
 })
 export class HomeService {
   constructor(private http: HttpClient) {}
-
-  public getConsulta(): Observable<any> {
-    return this.http.get<any>(environment['api'] + 'consultas/');
-  }
-
-  public deleteConsulta(id: any): Observable<any> {
-    return this.http.delete<any>(environment['api'] + 'consultas/' + id, id);
-  }
 }

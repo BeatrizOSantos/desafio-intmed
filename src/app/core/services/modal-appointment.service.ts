@@ -1,11 +1,4 @@
-import {
-  Especialidade,
-  Medico,
-  Data,
-  Horario,
-  AgendasDisponiveis,
-  Consulta,
-} from '../interfaces/consultas_d';
+import { Especialidade, Medico } from '../interfaces/consultas_d';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -42,7 +35,6 @@ export class ModalAppointmentService {
         '&especialidade=' +
         idEspecialidade
     );
-    // /agendas/?medico=1&especialidade=2&data_inicio=2020-01-01&data_final=2020-01-05
   }
 
   getAgenda(
@@ -54,9 +46,5 @@ export class ModalAppointmentService {
       environment['api'] +
         `agendas/?medico=${idMedico}&especialidade=${idEspecialidade}&data_inicio=${data}&data_final=${data}`
     );
-  }
-
-  public postCriarConsulta(consulta: any): Observable<any> {
-    return this.http.post(environment['api'] + 'consultas/', consulta);
   }
 }

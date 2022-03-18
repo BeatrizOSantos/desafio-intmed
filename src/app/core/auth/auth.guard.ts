@@ -19,7 +19,6 @@ export class AuthGuard implements CanActivate {
     const token = window.sessionStorage.getItem('token');
 
     if (token) {
-      console.log('entrou2');
       return true;
     } else {
       this.router.navigate(['login']);

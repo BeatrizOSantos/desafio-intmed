@@ -20,7 +20,6 @@ export class AuthService {
       .pipe(
         tap((res) => {
           const authToken = res.headers.get('x-acess-token');
-          // window.localStorage.setItem('authToken' || '{}', authToken);
           console.log(`User ${username} authenticated with token ${authToken}`);
         })
       );

@@ -1,16 +1,10 @@
-import { HomeService } from '../../core/services/home.service';
+import { Medico } from './../../core/models/medico.model';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ModalAppointmentService } from '../../core/services/modal-appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ConsultaService } from 'src/app/core/services/consulta.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  Data,
-  Horario,
-  Medico,
-  AgendasDisponiveis,
-  // Especialidade,
-} from '../../core/interfaces/consultas_d';
 import { Especialidade } from 'src/app/core/models/especialidade.model';
 
 @Component({
@@ -23,19 +17,17 @@ export class ModalAppointmentComponent implements OnInit {
 
   especialidades!: Especialidade[];
   medicos!: Medico[];
-  horarios!: any[];
+  horarios!: string[];
   agendasDisponiveis!: any[];
 
-  agendaConsulta: any;
+  idEspecialidade!: string;
+  idMedico!: string;
+  idAgenda!: string;
 
-  idEspecialidade!: any;
-  idMedico!: any;
-  idAgenda!: any;
+  diaConsulta!: string;
+  horaConsulta!: string;
 
-  diaConsulta!: any;
-  horaConsulta!: any;
-
-  respostaConsulta!: any[];
+  respostaConsulta!: string[];
 
   showErrorMedico: boolean = false;
   showErrorDia: boolean = false;
@@ -50,7 +42,7 @@ export class ModalAppointmentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: ModalAppointmentService,
     private dialogRef: MatDialogRef<ModalAppointmentComponent>,
-    private homeService: HomeService,
+    private consultaService: ConsultaService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -65,17 +57,23 @@ export class ModalAppointmentComponent implements OnInit {
     this.getEspecialidades();
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBarRed(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      panelClass: 'red',
+      verticalPosition: 'top',
+    });
+  }
+
+  openSnackBarGreen(message: string, action: string) {
     this._snackBar.open(message, action, {
       verticalPosition: 'top',
+      panelClass: 'green',
     });
   }
 
   getEspecialidades() {
     this.modalService.getEspecialidades().subscribe((data) => {
       this.especialidades = data;
-      // this.getMedicos();
-      console.log(data);
     });
   }
 
@@ -85,55 +83,43 @@ export class ModalAppointmentComponent implements OnInit {
 
     this.idEspecialidade = this.criarConsultaForm.value.especialidade;
     if (this.idEspecialidade != null) {
-      console.log(this.idEspecialidade);
       this.modalService.getMedicos(this.idEspecialidade).subscribe((data) => {
         this.medicos = data;
-        console.log(data);
       });
       this.idMedico = this.criarConsultaForm.value.medico;
     } else {
       this.showErrorMedico = true;
-      // this.openSnackBar('Selecione primeiro a especialidade!', 'Fechar');
+      this.openSnackBarRed('Selecione primeiro a especialidade!', 'Fechar');
     }
   }
 
   getAgendasDisponiveis() {
-    console.log('entrou');
     this.showErrorHora = false;
 
     try {
-      console.log('entrou2');
       this.modalService
         .getAgendasDisponiveis(this.idMedico, this.idEspecialidade)
         .subscribe((data) => {
           this.agendasDisponiveis = data;
-          console.log(data);
         });
       this.diaConsulta = this.criarConsultaForm.value.agenda;
     } catch (error) {
       this.showErrorDia = true;
-      // this.openSnackBar('Selecione primeiro o medico!', 'Fechar');
+      this.openSnackBarRed('Selecione primeiro o medico!', 'Fechar');
     }
   }
 
   getHora() {
-    console.log('entrouhora');
     try {
-      console.log('entrouhora2');
       this.modalService
         .getAgenda(this.idMedico, this.idEspecialidade, this.diaConsulta)
         .subscribe((data) => {
-          console.log('data: ', data);
-          // this.respostaConsulta = data;
-          // this.agendaConsulta = JSON.stringify(this.respostaConsulta);
-          // this.agendaConsulta = JSON.parse(this.agendaConsulta);
           this.horarios = data[0].horarios;
-          console.log('data id:', data[0].id);
           this.requiredPostCreateConsulta.agenda_id = data[0].id;
         });
     } catch (error) {
       this.showErrorHora = true;
-      // this.openSnackBar('Selecione primeiro a data!', 'Fechar');
+      this.openSnackBarRed('Selecione primeiro a data!', 'Fechar');
     }
   }
 
@@ -141,17 +127,16 @@ export class ModalAppointmentComponent implements OnInit {
     try {
       this.requiredPostCreateConsulta.horario =
         this.criarConsultaForm.value.hora;
-      console.log(this.requiredPostCreateConsulta);
-      this.modalService
+      this.consultaService
         .postCriarConsulta(this.requiredPostCreateConsulta)
         .subscribe({
           next: () => {
-            this.openSnackBar('Consulta Marcada!', 'Fechar');
+            this.openSnackBarGreen('Consulta Marcada!', 'Fechar');
             this.dialogRef.close();
             this.criarConsultaForm.reset();
           },
           error: () => {
-            this.openSnackBar('Erro!', 'Fechar');
+            this.openSnackBarRed('Erro!', 'Fechar');
           },
           complete: () => {},
         });
