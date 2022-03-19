@@ -47,7 +47,7 @@
         <ng-container matColumnDef="data">
           <th mat-header-cell *matHeaderCellDef>DATA</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.dia | date }}
+            {{ element.dia | date: "MM/dd/yy" }}
           </td>
         </ng-container>
 

@@ -35,7 +35,7 @@
               *ngFor="let agenda of agendasDisponiveis"
               [value]="agenda.dia"
             >
-              {{ agenda.dia | date }}
+              {{ agenda.dia | date: "MM/dd/yy" }}
             </mat-option>
           </mat-select>
         </mat-form-field>
